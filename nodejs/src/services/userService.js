@@ -144,7 +144,7 @@ let updateUserData = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       // console.log("check node", data);
-      if (!data.id) {
+      if (!data.id || !data.roleId || !data.gender || !data.positionId) {
         resolve({
           errCode: 2,
           errMessage: "Missing input",
@@ -155,9 +155,13 @@ let updateUserData = (data) => {
         raw: false,
       });
       if (user) {
-        user.firstName = data.firstname;
-        user.lastName = data.lastname;
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
         user.address = data.address;
+        user.roleId = data.roleId;
+        user.positionId = data.positionId;
+        user.gender = data.gender;
+        user.phonenumber = data.phonenumber;
         await user.save();
         resolve({
           errCode: 0,
